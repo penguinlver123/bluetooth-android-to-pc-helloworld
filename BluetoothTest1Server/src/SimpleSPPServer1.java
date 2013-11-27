@@ -32,20 +32,35 @@ public class SimpleSPPServer1 {
         System.out.println("Remote device address: "+dev.getBluetoothAddress());
         System.out.println("Remote device name: "+dev.getFriendlyName(true));
         
-        //read string from spp client
         InputStream inStream=connection.openInputStream();
+        //OutputStream outStream=connection.openOutputStream();
+        
+        
+        try{
+        //read string from spp client
         BufferedReader bReader=new BufferedReader(new InputStreamReader(inStream));
-        String lineRead=bReader.readLine();
-        System.out.println(lineRead);
-        
+		//PrintWriter pWriter=new PrintWriter(new OutputStreamWriter(outStream));
+		
+        while(true)
+        {
+        	String lineRead = bReader.readLine();
+        	if(lineRead != null)
+        	{
+        		System.out.println(lineRead);
+        	
         //send response to spp client
-        OutputStream outStream=connection.openOutputStream();
-        PrintWriter pWriter=new PrintWriter(new OutputStreamWriter(outStream));
-        pWriter.write("Response String from SPP Server\r\n");
-        pWriter.flush();
+        		//pWriter.write("Response String from SPP Server\r\n");
+        	}//}catch(IOException e){
+        //	System.out.println("Connection broken: " + e.getMessage() + ".");
+        //	streamConnNotifier.close();
+        //}
+        }
+        } catch(Exception ex){
+        	System.out.println(ex);
+    		//pWriter.flush();  
+    		//pWriter.close();
+        }
         
-        pWriter.close();
-        streamConnNotifier.close();
         }
 	
 	public static void main(String[] args) throws IOException {
