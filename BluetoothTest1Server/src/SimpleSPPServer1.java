@@ -33,13 +33,13 @@ public class SimpleSPPServer1 {
         System.out.println("Remote device name: "+dev.getFriendlyName(true));
         
         InputStream inStream=connection.openInputStream();
-        //OutputStream outStream=connection.openOutputStream();
+        OutputStream outStream=connection.openOutputStream();
         
         
         try{
         //read string from spp client
         BufferedReader bReader=new BufferedReader(new InputStreamReader(inStream));
-		//PrintWriter pWriter=new PrintWriter(new OutputStreamWriter(outStream));
+		PrintWriter pWriter=new PrintWriter(new OutputStreamWriter(outStream));
 		
         while(true)
         {
@@ -49,7 +49,7 @@ public class SimpleSPPServer1 {
         		System.out.println(lineRead);
         	
         //send response to spp client
-        		//pWriter.write("Response String from SPP Server\r\n");
+        		pWriter.write("Response String from SPP Server\r\n");
         	}//}catch(IOException e){
         //	System.out.println("Connection broken: " + e.getMessage() + ".");
         //	streamConnNotifier.close();
